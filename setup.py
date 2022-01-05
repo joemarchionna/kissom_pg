@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="kissom_pg",
-    version="1.0.0",
+    version="1.0.1",
     author="Joe Marchionna",
     author_email="joemarchionna@gmail.com",
     description="Keep It Simple Stupid Object Manager - PostgreSQL Adapter",
