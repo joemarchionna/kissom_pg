@@ -25,9 +25,11 @@ class PgAdapter(StoreAdapter):
 
     def closeConnection(self):
         if self.connection and (self.connection.closed == False):
+            self.logger.debug("Closing PostgreSQL Connection")
             self.connection.close()
 
     def getTransactionCursor(self):
+        self.logger.debug("Getting Transaction Cursor")
         return self.connection.cursor()
 
     def getTableDefinition(self, tableName: str):
@@ -63,12 +65,14 @@ class PgAdapter(StoreAdapter):
         if not xaction:
             xaction = self.connection.cursor()
             _close = True
+        self.logger.debug("Executing SQL: '{}'".format(sql))
         xaction.execute(sql, values)
         _records = xaction.fetchall()
         if _close:
             if commitXaction:
                 self.connection.commit()
             xaction.close()
+        self.logger.debug("Returning {} Records".format(len(_records)))
         return _records
 
     def _getRecords(self, values: list, objKeys: list):

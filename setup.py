@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="kissom_pg",
-    version="1.0.1",
+    version="1.0.2",
     author="Joe Marchionna",
     author_email="joemarchionna@gmail.com",
     description="Keep It Simple Stupid Object Manager - PostgreSQL Adapter",
@@ -11,6 +11,7 @@ setup(
     license=open("license.md").read(),
     packages=setuptools.find_packages(),
     url="https://github.com/joemarchionna/kissom_pg.git",
+    keywords=["PostgreSQL", "ADAPTER", "ORM"],
     install_requires=["psycopg2"],
     classifiers=[
         "Programming Language :: Python :: 3",
