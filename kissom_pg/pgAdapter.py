@@ -61,7 +61,7 @@ class PgAdapter(StoreAdapter):
         return self._getRecords(values=_values, objKeys=objKeys)
 
     def next(self, sequenceName: str, xaction=None):
-        _sql = "nextval('{}')".format(sequenceName)
+        _sql = "SELECT nextval('{}')".format(sequenceName)
         _values = self._execute(sql=_sql, values=None, xaction=xaction)
         return _values[0]
 
