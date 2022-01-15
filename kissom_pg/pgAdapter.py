@@ -63,7 +63,7 @@ class PgAdapter(StoreAdapter):
     def next(self, sequenceName: str, xaction=None):
         _sql = "SELECT nextval('{}')".format(sequenceName)
         _values = self._execute(sql=_sql, values=None, xaction=xaction)
-        return _values[0]
+        return _values[0][0]
 
     def _execute(self, sql: str, values: tuple, xaction=None, commitXaction: bool = False):
         _close = False
