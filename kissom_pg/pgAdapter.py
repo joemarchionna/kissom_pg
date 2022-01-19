@@ -50,8 +50,17 @@ class PgAdapter(StoreAdapter):
         _values = self._execute(sql=_sql, values=_values)
         return self._getRecords(values=_values, objKeys=objKeys)
 
-    def update(self, fqtn: str, dbKeys: list, objKeys: list, obj: dict, conditions: dict, xaction=None):
-        _sql, _values = updateSql(tableName=fqtn, objKeys=objKeys, dbKeys=dbKeys, data=obj, conditionTree=conditions)
+    def update(
+        self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None
+    ):
+        _sql, _values = updateSql(
+            tableName=fqtn,
+            objKeys=objKeys,
+            objPrimaryKeys=objPrimaryKeys,
+            dbKeys=dbKeys,
+            data=obj,
+            conditionTree=conditions,
+        )
         _values = self._execute(sql=_sql, values=_values, xaction=xaction, commitXaction=True)
         return self._getRecords(values=_values, objKeys=objKeys)
 

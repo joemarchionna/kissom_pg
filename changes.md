@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2022 01 18
+### Changed
+- update method signature and handling
+
 ## [1.1.2] - 2022 01 14
 ### Fixed
 - bug with next method
