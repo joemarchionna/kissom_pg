@@ -1,0 +1,2 @@
+psycopg2
+kissom@git+ssh://git@github.com/joemarchionna/kissom.git

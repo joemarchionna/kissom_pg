@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2022 02 17
+### Added
+- replace method added to adapter
+### Changed
+- updated setup.py to include the git-based projects using requirements files
+
 ## [1.2.0] - 2022 01 18
 ### Changed
 - update method signature and handling

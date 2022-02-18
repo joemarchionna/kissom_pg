@@ -1,7 +1,7 @@
 from kissom.storeAdapter import StoreAdapter
 from kissom.utils.names import splitFQTN
 from kissom.utils.mapping import getDictFromTuple
-from kissom.utils.sql import insertSql, selectSql, updateSql, deleteSql
+from kissom.utils.sql import insertSql, selectSql, updateSql, replaceSql, deleteSql
 from kissom_pg.pgCmds.pgTableInfo import getTableInfo
 import psycopg2
 
@@ -12,16 +12,18 @@ class PgAdapter(StoreAdapter):
         logName: str = None,
         connectionString: str = "host=localhost dbname=databaseName user=databaseUser password=password123",
         openConnection: bool = True,
+        **psycopg2Kwargs
     ):
         super().__init__(logName=logName)
         self.connStr = connectionString
         self.connection = None
+        self.psycopg2Kwargs = psycopg2Kwargs
         if openConnection:
             self.connection = self.openConnection()
 
     def openConnection(self):
         self.logger.debug("Opening Connection")
-        return psycopg2.connect(self.connStr)
+        return psycopg2.connect(self.connStr, **self.psycopg2Kwargs)
 
     def closeConnection(self):
         if self.connection and (self.connection.closed == False):
@@ -50,9 +52,7 @@ class PgAdapter(StoreAdapter):
         _values = self._execute(sql=_sql, values=_values)
         return self._getRecords(values=_values, objKeys=objKeys)
 
-    def update(
-        self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None
-    ):
+    def update(self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None):
         _sql, _values = updateSql(
             tableName=fqtn,
             objKeys=objKeys,
@@ -60,6 +60,13 @@ class PgAdapter(StoreAdapter):
             dbKeys=dbKeys,
             data=obj,
             conditionTree=conditions,
+        )
+        _values = self._execute(sql=_sql, values=_values, xaction=xaction, commitXaction=True)
+        return self._getRecords(values=_values, objKeys=objKeys)
+
+    def replace(self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None):
+        _sql, _values = replaceSql(
+            tableName=fqtn, objKeys=objKeys, objPrimaryKeys=objPrimaryKeys, dbKeys=dbKeys, data=obj, conditionTree=conditions
         )
         _values = self._execute(sql=_sql, values=_values, xaction=xaction, commitXaction=True)
         return self._getRecords(values=_values, objKeys=objKeys)
