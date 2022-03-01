@@ -34,6 +34,14 @@ class PgAdapter(StoreAdapter):
         self.logger.debug("Getting Transaction Cursor")
         return self.connection.cursor()
 
+    def commit(self):
+        if self.connection:
+            self.connection.commit()
+
+    def rollback(self):
+        if self.connection:
+            self.connection.rollback()
+
     def getTableDefinition(self, tableName: str):
         sName, tName = splitFQTN(fullyQualifiedTableName=tableName)
         columnList = getTableInfo(conn=self.connection, schemaName=sName, tableName=tName, includePrimaryKeyInfo=True)
@@ -52,7 +60,9 @@ class PgAdapter(StoreAdapter):
         _values = self._execute(sql=_sql, values=_values)
         return self._getRecords(values=_values, objKeys=objKeys)
 
-    def update(self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None):
+    def update(
+        self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None
+    ):
         _sql, _values = updateSql(
             tableName=fqtn,
             objKeys=objKeys,
@@ -64,9 +74,16 @@ class PgAdapter(StoreAdapter):
         _values = self._execute(sql=_sql, values=_values, xaction=xaction, commitXaction=True)
         return self._getRecords(values=_values, objKeys=objKeys)
 
-    def replace(self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None):
+    def replace(
+        self, fqtn: str, dbKeys: list, objKeys: list, objPrimaryKeys: list, obj: dict, conditions: dict, xaction=None
+    ):
         _sql, _values = replaceSql(
-            tableName=fqtn, objKeys=objKeys, objPrimaryKeys=objPrimaryKeys, dbKeys=dbKeys, data=obj, conditionTree=conditions
+            tableName=fqtn,
+            objKeys=objKeys,
+            objPrimaryKeys=objPrimaryKeys,
+            dbKeys=dbKeys,
+            data=obj,
+            conditionTree=conditions,
         )
         _values = self._execute(sql=_sql, values=_values, xaction=xaction, commitXaction=True)
         return self._getRecords(values=_values, objKeys=objKeys)

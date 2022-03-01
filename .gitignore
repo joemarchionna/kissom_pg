@@ -9,6 +9,7 @@ env/
 __pycache__/
 
 *credentials*
+requirements/devLocal.txt
 
 # general artifacts
 wkdir/

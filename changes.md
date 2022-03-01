@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2022 03 01
+### Fixed
+- commit and rollback method issues
+
+## [1.4.0] - 2022 02 18
+### Added
+- commit and rollback methods to adapter
+
 ## [1.3.1] - 2022 02 17
 ### Added
 - replace method added to adapter
