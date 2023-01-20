@@ -2,7 +2,7 @@ from kissom.storeAdapter import StoreAdapter
 from kissom.utils.names import splitFQTN
 from kissom.utils.mapping import getDictFromTuple
 from kissom.utils.sql import insertSql, selectSql, updateSql, replaceSql, deleteSql
-from kissom_pg.pgCmds.pgTableInfo import getTableInfo
+from kissom_pg.pgCmds.pgCatalogInfo import getCatalogInfo
 import psycopg2
 
 
@@ -42,10 +42,12 @@ class PgAdapter(StoreAdapter):
         if self.connection:
             self.connection.rollback()
 
-    def getTableDefinition(self, tableName: str):
+    def getDefinition(self, tableName: str):
         sName, tName = splitFQTN(fullyQualifiedTableName=tableName)
-        columnList = getTableInfo(conn=self.connection, schemaName=sName, tableName=tName, includePrimaryKeyInfo=True)
-        return columnList
+        catInfo = getCatalogInfo(
+            conn=self.connection, schemaName=sName, tableName=tName, includePrimaryKeyInfo=True
+        )
+        return catInfo
 
     def insert(self, fqtn: str, dbKeys: list, objKeys: list, obj: dict, xaction=None):
         _sql, _values = insertSql(tableName=fqtn, objKeys=objKeys, dbKeys=dbKeys, data=obj)

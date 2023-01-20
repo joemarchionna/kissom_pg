@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2022 08 09
+### Added
+- pgCatalogInfo module
+### Changed
+- structure of definitions to include "isTable" and "columns" keys
+
 ## [1.5.0] - 2022 03 01
 ### Fixed
 - commit and rollback method issues
