@@ -1,0 +1,12 @@
+{
+    "name": "kissom_pg",
+    "version": "2.0.5",
+    "author": "Joe Marchionna",
+    "author_email": "joemarchionna@gmail.com",
+    "description": "Keep It Simple Stupid Object Manager - PostgreSQL Adapter",
+    "requirements":"requirements/prod.txt",
+    "url": "https://github.com/joemarchionna/kissom_pg.git",
+    "packageData":{
+        "kissom_pg":["*.json"]
+    }
+}
