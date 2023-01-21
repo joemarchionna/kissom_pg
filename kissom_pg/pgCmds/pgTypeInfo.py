@@ -1,11 +1,12 @@
-from pgConstants import PG_TABLE, PG_VIEW, PG_MATERIALIZED_VIEW, PG_UNKNOWN
+from kissom_pg.pgConstants import PG_TABLE, PG_VIEW, PG_MATERIALIZED_VIEW, PG_UNKNOWN
 
-CATALOG_COUNT_QUERY = "SELECT COUNT(*) FROM %s WHERE schemaname = %s and tablename = %s"
+CATALOG_COUNT_QUERY = "SELECT COUNT(*) FROM CATALOG WHERE schemaname = %s and tablename = %s"
 
 
 def _isA(conn, schemaName: str, tableName: str, catalogName: str):
     xaction = conn.cursor()
-    xaction.execute(CATALOG_COUNT_QUERY, (catalogName, schemaName, tableName))
+    query = CATALOG_COUNT_QUERY.replace("CATALOG", catalogName)
+    xaction.execute(query, (schemaName, tableName))
     response = xaction.fetchone()
     xaction.close()
     return response[0] > 0

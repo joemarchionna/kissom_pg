@@ -18,7 +18,7 @@ ORDER BY a.attnum;
 """
 
 
-def getViewInfo(conn, schemaName: str, viewName: str,raiseExceptionIfNoData:bool=True):
+def getViewInfo(conn, schemaName: str, viewName: str, raiseExceptionIfNoData: bool = True):
     xaction = conn.cursor()
     xaction.execute(_SELECT_VIEW_SCHEMA_SQL, (viewName, schemaName))
     response = xaction.fetchall()

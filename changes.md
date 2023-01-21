@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.5] - 2023 01 20
+### Fixed
+- bug in pgCatalogInfo module
+
+## [2.0.1] - 2023 01 19
+### Fixed
+- bug in pgTypeInfo module
+
 ## [1.6.0] - 2022 08 09
 ### Added
 - pgCatalogInfo module

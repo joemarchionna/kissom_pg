@@ -44,9 +44,7 @@ class PgAdapter(StoreAdapter):
 
     def getDefinition(self, tableName: str):
         sName, tName = splitFQTN(fullyQualifiedTableName=tableName)
-        catInfo = getCatalogInfo(
-            conn=self.connection, schemaName=sName, tableName=tName, includePrimaryKeyInfo=True
-        )
+        catInfo = getCatalogInfo(conn=self.connection, schemaName=sName, tableName=tName, includePrimaryKeyInfo=True)
         return catInfo
 
     def insert(self, fqtn: str, dbKeys: list, objKeys: list, obj: dict, xaction=None):

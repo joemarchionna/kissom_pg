@@ -7,6 +7,8 @@ def getCatalogInfo(conn, schemaName: str, tableName: str, includePrimaryKeyInfo:
     if isTable(conn=conn, schemaName=schemaName, tableName=tableName):
         return {
             "isTable": True,
-            "columns": getTableInfo(conn=conn, schemaName=schemaName, tableName=tableName, includePrimaryKeyInfo=includePrimaryKeyInfo),
+            "columns": getTableInfo(
+                conn=conn, schemaName=schemaName, tableName=tableName, includePrimaryKeyInfo=includePrimaryKeyInfo
+            ),
         }
-    return {"isTable": False, "columns": getViewInfo(conn=conn, schemaName=schemaName, tableName=tableName)}
+    return {"isTable": False, "columns": getViewInfo(conn=conn, schemaName=schemaName, viewName=tableName)}

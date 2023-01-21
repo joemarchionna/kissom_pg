@@ -39,5 +39,3 @@ Code Formatting
 ```
     $ black . -l 119
 ```
-
-====

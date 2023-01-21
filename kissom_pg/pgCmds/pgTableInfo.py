@@ -22,7 +22,7 @@ def getTableInfo(conn, schemaName: str, tableName: str, includePrimaryKeyInfo: b
     return tableColumns
 
 
-def _getTableInfo(conn, schemaName: str, tableName: str, raiseExceptionIfNoData:bool=True):
+def _getTableInfo(conn, schemaName: str, tableName: str, raiseExceptionIfNoData: bool = True):
     xaction = conn.cursor()
     xaction.execute(_SELECT_INFO_SQL, (schemaName, tableName))
     response = xaction.fetchall()
